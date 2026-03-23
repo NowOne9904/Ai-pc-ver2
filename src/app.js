@@ -110,4 +110,17 @@ function createRecommendationApp(defaultPcId) {
     return app;
 }
 
-module.exports = { createRecommendationApp };
+const app = createRecommendationApp('2772529981'); // 기본 Fallback ID 처리
+
+// 로컬 환경 실행용
+if (require.main === module) {
+    const port = process.env.PORT || 3000;
+    app.listen(port, () => {
+        console.log(`Server is running locally on port ${port}`);
+    });
+}
+
+// Vercel 환경에서는 반드시 Express app 객체를 직접 반환해야 작동합니다. (404 Not Found 방어)
+module.exports = app;
+// 기존 TDD 테스트 호환성 유지를 위한 명시적 export
+module.exports.createRecommendationApp = createRecommendationApp;
