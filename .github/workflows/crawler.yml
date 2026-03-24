@@ -1,0 +1,30 @@
+name: Deep Crawler Nightly Sync
+
+on:
+  schedule:
+    # 매일 자정에 실행 (KST 09:00 AM)
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    # 깃허브 웹에서 수동으로 버튼을 눌러 실행 가능하게 허용
+
+jobs:
+  run-crawler:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install NPM Dependencies
+        run: npm install
+
+      - name: Execute Background Standalone Crawler
+        run: node src/crawler.js
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
