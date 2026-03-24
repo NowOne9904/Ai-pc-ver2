@@ -5,8 +5,8 @@ const { supabase } = require('./db');
 
 // 확장된 다중 카테고리 배열
 const CATEGORY_URLS = [
-    'https://www.youngjaecomputer.com/shop/list.php?ca_id=h0&ca_id_vi=364&ca_id_index=19'
-    // 필요 시 콤마로 구분하여 타 카테고리 URL 추가
+    'https://www.youngjaecomputer.com/shop/list.php?ca_id=h0&ca_id_vi=364&ca_id_index=19', // 기존: AI 추천장바구니 (상품 4개)
+    'https://www.youngjaecomputer.com/shop/list.php?ca_id=h0' // 추가: 스탠다드 PC 전체 (상품 수백개)
 ];
 
 function calculatePerformance(title, detailText = '', it_price = 0) {
